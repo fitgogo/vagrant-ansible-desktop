@@ -1,0 +1,9 @@
+---
+- hosts: remote-vms
+  become: yes
+  roles:
+    - common
+    - git
+    - xubuntu
+    - ntp
+    - users

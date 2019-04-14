@@ -1,0 +1,32 @@
+---
+- name: create default user-dirs
+  file: >
+    path="/etc/skel/{{ item }}"
+    state=directory
+  with_items:
+    - Desktop
+    - Downloads
+    - Templates
+    - Public
+    - Documents
+    - Music
+    - Pictures
+    - Videos
+
+- name: xdg setting
+  copy: >
+    dest="/etc/xdg/user-dirs.conf"
+    src="user-dirs.conf"
+- name: create user
+  user: >
+    name="{{ users_username }}"
+    groups="{{ users_groups }}"
+    shell="/bin/bash"
+    password="{{ users_password | password_hash('sha512') }}"
+    update_password=on_create
+- name: add to sudoers
+  lineinfile: >
+    dest="/etc/sudoers.d/{{ users_username }}"
+    line="{{ users_username }} ALL=(ALL:ALL) NOPASSWD:ALL"
+    create=yes
+

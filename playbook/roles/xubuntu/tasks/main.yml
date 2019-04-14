@@ -1,0 +1,60 @@
+---
+- name: install xubuntu-desktop
+  apt: 
+    name: ['xubuntu-desktop', 'plymouth-x11']
+  environment:
+    DEBIAN_FRONTEND: noninteractive
+  register: install_desktop
+  notify:
+    - reboot server
+    - wait for reboot
+
+- name: greeter setting
+  lineinfile: >
+    dest="/usr/share/lightdm/lightdm.conf.d/60-lightdm-gtk-greeter.conf"
+    line="{{ item }}"
+  with_items:
+    - "allow-guest=false"
+    - "greeter-hide-users=true"
+    - "greeter-show-manual-login=true"
+
+- name: keyboard setting
+  lineinfile: >
+    dest="/etc/default/keyboard"
+    regexp="{{ item.regexp }}"
+    line="{{ item.line }}"
+  with_items:
+    - { regexp: "XKBMODEL=", line: 'XKBMODEL="pc101"' }
+    - { regexp: "XKBLAYOUT=", line: 'XKBLAYOUT="us"' }
+    - { regexp: "XKBVARIANT=", line: 'XKBVARIANT=""' }
+
+- name: grub setting
+  lineinfile: >
+    dest="/etc/default/grub.d/50-cloudimg-settings.cfg"
+    regexp="GRUB_CMDLINE_LINUX_DEFAULT.*"
+    line='GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"'
+  register: grub_config
+
+- name: update grub
+  command: update-grub
+  when: grub_config is changed
+
+- name: update initramfs
+  command: update-initramfs -u -k all
+  when: grub_config is changed
+
+- name: reboot server
+  command: reboot
+  async: 0
+  poll: 0
+  ignore_errors: true
+  when: install_desktop is changed or grub_config is changed
+
+- name: wait for reboot
+  local_action:
+    module: wait_for
+      host="{{ inventory_hostname }}"
+      port=22
+      delay=1
+      timeout=300
+  when: install_desktop is changed or grub_config is changed

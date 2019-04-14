@@ -1,0 +1,5 @@
+---
+users_username: "gucchy"
+users_password: "password"
+users_group: "gucchy"
+users_groups: "sudo"
