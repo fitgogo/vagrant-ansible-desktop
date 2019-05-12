@@ -24,8 +24,8 @@
     regexp="{{ item.regexp }}"
     line="{{ item.line }}"
   with_items:
-    - { regexp: "XKBMODEL=", line: 'XKBMODEL="pc101"' }
-    - { regexp: "XKBLAYOUT=", line: 'XKBLAYOUT="us"' }
+    - { regexp: "XKBMODEL=", line: 'XKBMODEL="pc106"' }
+    - { regexp: "XKBLAYOUT=", line: 'XKBLAYOUT="jp"' }
     - { regexp: "XKBVARIANT=", line: 'XKBVARIANT=""' }
 
 - name: grub setting

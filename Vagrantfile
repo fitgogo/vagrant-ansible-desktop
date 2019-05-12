@@ -2,7 +2,7 @@ Vagrant.configure(2) do |config|
 
   # remote-VM
   config.vm.define "desktop" do |remote|
-    remote.vm.box = "ubuntu/trusty64"
+    remote.vm.box = "ubuntu/xenial64"
     remote.vm.hostname = "ansible-remote"
     remote.vm.network "private_network", ip: "192.168.50.102"
 
@@ -15,11 +15,19 @@ Vagrant.configure(2) do |config|
       vb.customize ["modifyvm", :id, "--accelerate3d", "on"]
       vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     end
+
+    remote.vm.provision "shell", privileged: false, inline: <<-SHELL
+      sudo apt-get update
+      sudo apt-get install -y python 
+      sudo sed -i -e "s/PasswordAuthentication no/PasswordAuthentication yes/" /etc/ssh/sshd_config
+      sudo service sshd restart
+    SHELL
+
   end
 
   # control-VM
   config.vm.define "control" do |control|
-    control.vm.box = "ubuntu/trusty64"
+    control.vm.box = "ubuntu/xenial64"
     control.vm.hostname = "ansible-control"
     control.vm.network "private_network", ip: "192.168.50.101"
     control.vm.synced_folder ".", "/vagrant", :mount_options => ['dmode=775', 'fmode=664']
