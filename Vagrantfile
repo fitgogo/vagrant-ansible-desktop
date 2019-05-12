@@ -2,9 +2,10 @@ Vagrant.configure(2) do |config|
 
   # remote-VM
   config.vm.define "desktop" do |remote|
-    remote.vm.box = "ubuntu/xenial64"
+    remote.vm.box = "ubuntu/bionic64"
     remote.vm.hostname = "ansible-remote"
     remote.vm.network "private_network", ip: "192.168.50.102"
+    remote.vm.synced_folder ".", "/vagrant", :mount_options => ['dmode=775', 'fmode=664']
 
     remote.vm.provider "virtualbox" do |vb|
       vb.memory = 2048
@@ -27,7 +28,7 @@ Vagrant.configure(2) do |config|
 
   # control-VM
   config.vm.define "control" do |control|
-    control.vm.box = "ubuntu/xenial64"
+    control.vm.box = "ubuntu/bionic64"
     control.vm.hostname = "ansible-control"
     control.vm.network "private_network", ip: "192.168.50.101"
     control.vm.synced_folder ".", "/vagrant", :mount_options => ['dmode=775', 'fmode=664']

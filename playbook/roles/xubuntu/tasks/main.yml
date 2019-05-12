@@ -1,7 +1,11 @@
 ---
 - name: install xubuntu-desktop
   apt: 
-    name: ['xubuntu-desktop', 'plymouth-x11']
+    name: 
+    - xubuntu-desktop
+    - plymouth-x11
+    - virtualbox-guest-dkms
+    - virtualbox-guest-x11
   environment:
     DEBIAN_FRONTEND: noninteractive
   register: install_desktop
