@@ -1,5 +1,5 @@
 ---
-users_username: "gucchy"
+users_username: "dev"
 users_password: "password"
-users_group: "gucchy"
+users_group: "dev"
 users_groups: "sudo"
