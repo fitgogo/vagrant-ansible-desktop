@@ -11,7 +11,6 @@
   register: install_desktop
   notify:
     - reboot server
-    - wait for reboot
 
 - name: greeter setting
   lineinfile: >
@@ -48,17 +47,14 @@
   when: grub_config is changed
 
 - name: reboot server
-  command: reboot
-  async: 0
+  reboot:
+  async: 1
   poll: 0
   ignore_errors: true
   when: install_desktop is changed or grub_config is changed
 
 - name: wait for reboot
-  local_action:
-    module: wait_for
-      host="{{ inventory_hostname }}"
-      port=22
-      delay=1
-      timeout=300
+  wait_for_connection:
+    delay: 30
+    timeout: 300
   when: install_desktop is changed or grub_config is changed

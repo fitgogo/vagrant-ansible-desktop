@@ -19,7 +19,7 @@ Vagrant.configure(2) do |config|
 
     remote.vm.provision "shell", privileged: false, inline: <<-SHELL
       sudo apt-get update
-      sudo apt-get install -y python 
+      sudo apt-get install -y python python-apt aptitude
       sudo sed -i -e "s/PasswordAuthentication no/PasswordAuthentication yes/" /etc/ssh/sshd_config
       sudo service sshd restart
     SHELL
