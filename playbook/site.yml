@@ -8,3 +8,5 @@
     - ntp
     - users
     - docker
+    - anyenv
+    - atom
