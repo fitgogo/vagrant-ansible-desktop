@@ -12,6 +12,7 @@
     - Music
     - Pictures
     - Videos
+    - Projent
 
 - name: xdg setting
   copy: >
@@ -29,17 +30,3 @@
     dest="/etc/sudoers.d/{{ users_username }}"
     line="{{ users_username }} ALL=(ALL:ALL) NOPASSWD:ALL"
     create=yes
-- stat:
-    path: /home/{{ users_username }}/.anyenv
-  register: anyenv_is_installed
-- name: install anyenv
-  shell: git clone https://github.com/riywo/anyenv /home/{{ users_username }}/.anyenv
-  when: anyenv_is_installed.stat.exists == false
-- name: update anyenv
-  shell: cd /home/{{ users_username }}/.anyenv && git fetch && git rebase origin master
-  register: git_messages
-  changed_when: git_messages.stdout != "Current branch master is up to date."
-- name: chown anyenv
-  file: path=/home/{{ users_username }}/.anyenv owner={{ users_username}} group={{ users_group }} mode=0766 state=directory recurse=yes
-- name: add bashrc
-  lineinfile: dest=/home/{{ users_username }}/.bashrc line="export PATH=/home/{{ users_username }}/.anyenv/bin:$PATH"
