@@ -2,4 +2,4 @@
 users_username: "dev"
 users_password: "password"
 users_group: "dev"
-users_groups: "sudo, vboxsf"
+users_groups: "sudo"

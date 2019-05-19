@@ -10,10 +10,6 @@
   apt: update_cache=yes
   when: apt_mirror is changed
 
-- name: aptitude upgrade
-  apt: upgrade=full state=latest
-  when: apt_mirror is changed
-
 - name: install language-pack
   apt: 
     name: ['language-pack-ja', 'language-pack-gnome-ja', 'fonts-takao', 'ibus-anthy', 'ibus-mozc']
