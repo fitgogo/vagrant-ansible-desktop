@@ -16,7 +16,7 @@
 
 - name: install language-pack
   apt: 
-    name: ['language-pack-ja', 'language-pack-gnome-ja', 'thunderbird-locale-ja', 'fonts-takao', 'ibus-anthy', 'ibus-mozc']
+    name: ['language-pack-ja', 'language-pack-gnome-ja', 'fonts-takao', 'ibus-anthy', 'ibus-mozc']
   environment:
     DEBIAN_FRONTEND: "noninteractive"
   register: install_language_pack

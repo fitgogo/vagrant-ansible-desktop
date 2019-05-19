@@ -1,11 +1,69 @@
 ---
-- name: install xubuntu-desktop
+- name: install xserver
   apt: 
     name: 
-    - xubuntu-desktop
+    - xserver-xorg
+    - xserver-xorg-core
+    - xfonts-base
+    - xinit
+    - x11-xserver-utils
+    install_recommends: no
+  environment:
+    DEBIAN_FRONTEND: noninteractive
+  register: install_desktop
+
+- name: install fonts
+  apt: 
+    name: 
+    - fonts-ipa*
+    - fonts-noto
+    - fonts-ricty-diminished
+    install_recommends: no
+  environment:
+    DEBIAN_FRONTEND: noninteractive
+  register: install_desktop
+
+- name: install xfce
+  apt: 
+    name: 
+    - xfwm4
+    - xfce4-panel
+    - xfce4-settings
+    - xfce4-session
+    - xfce4-terminal
+    - xfdesktop4
+    - xfce4-taskmanager
+    - faenza-icon-theme
+    - lightdm
+    - lightdm-gtk-greeter
+    - thunar
+    - gvfs
+    - gvfs-backends
+    - policykit-1
+    - udisks2
+    - gstreamer1.0-plugins-base
+    - gstreamer1.0-plugins-good
+    - gstreamer1.0-plugins-bad
+    - pulseaudio
+    - gstreamer1.0-pulseaudio
+    - rhythmbox
+    - rhythmbox-plugins
+    - firefox
+    - firefox-locale-en
+    - firefox-locale-ja
     - plymouth-x11
+    install_recommends: no
+  environment:
+    DEBIAN_FRONTEND: noninteractive
+  register: install_desktop
+
+- name: install virtualbox utils
+  apt: 
+    name: 
+    - dkms
     - virtualbox-guest-dkms
     - virtualbox-guest-x11
+    install_recommends: no
   environment:
     DEBIAN_FRONTEND: noninteractive
   register: install_desktop
@@ -27,8 +85,8 @@
     regexp="{{ item.regexp }}"
     line="{{ item.line }}"
   with_items:
-    - { regexp: "XKBMODEL=", line: 'XKBMODEL="pc106"' }
-    - { regexp: "XKBLAYOUT=", line: 'XKBLAYOUT="jp"' }
+    - { regexp: "XKBMODEL=", line: 'XKBMODEL="{{ keyboardmodel }}"' }
+    - { regexp: "XKBLAYOUT=", line: 'XKBLAYOUT="{{ keyboardlayout }}"' }
     - { regexp: "XKBVARIANT=", line: 'XKBVARIANT=""' }
 
 - name: grub setting
