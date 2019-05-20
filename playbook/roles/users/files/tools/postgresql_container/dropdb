@@ -1,0 +1,2 @@
+#!/bin/sh
+docker exec -i tomass-postgresql dropdb $1 $2
