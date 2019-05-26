@@ -1,2 +1,6 @@
+.DS_Store
 .vagrant/
-
+playbook/roles/users/files/tools/mariadb_container/mysql/*
+playbiik/roles/users/files/tools/postgresql_container/postgresql/*
+.ssh/
+*.log
