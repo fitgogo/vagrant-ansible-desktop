@@ -33,7 +33,6 @@
     - xfce4-terminal
     - xfdesktop4
     - xfce4-taskmanager
-    - faenza-icon-theme
     - lightdm
     - lightdm-gtk-greeter
     - thunar
@@ -46,8 +45,6 @@
     - gstreamer1.0-plugins-bad
     - pulseaudio
     - gstreamer1.0-pulseaudio
-    - rhythmbox
-    - rhythmbox-plugins
     - firefox
     - firefox-locale-en
     - firefox-locale-ja

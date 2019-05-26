@@ -12,8 +12,11 @@
     - Music
     - Pictures
     - Videos
-    - Projent
-
+    - Project
+- name: add tools
+  copy: >
+    dest="/etc/skel"
+    src="tools"
 - name: xdg setting
   copy: >
     dest="/etc/xdg/user-dirs.conf"
@@ -30,3 +33,9 @@
     dest="/etc/sudoers.d/{{ users_username }}"
     line="{{ users_username }} ALL=(ALL:ALL) NOPASSWD:ALL"
     create=yes
+- name: Append docker group to user.
+  user: name={{ users_username }} groups=docker append=yes
+- name: add .ssh
+  copy: >
+    dest="/home/{{ users_username }}"
+    src=".ssh"
