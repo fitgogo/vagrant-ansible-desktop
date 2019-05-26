@@ -3,6 +3,7 @@ Vagrant.configure(2) do |config|
   # remote-VM
   config.vm.define "desktop" do |remote|
     remote.vm.box = "ubuntu/bionic64"
+    config.disksize.size = '64GB'
     remote.vm.hostname = "ansible-remote"
     remote.vm.network "private_network", ip: "192.168.50.102"
     remote.vm.synced_folder ".", "/vagrant", :mount_options => ['dmode=775', 'fmode=664']
@@ -12,9 +13,21 @@ Vagrant.configure(2) do |config|
       vb.cpus = 2
       vb.name = "ansible-remote"
       vb.gui = true
-      vb.customize ["modifyvm", :id, "--vram", "128"]
-      vb.customize ["modifyvm", :id, "--accelerate3d", "on"]
-      vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      vb.customize [
+      "modifyvm", :id,
+      "--vram", "256",
+      "--clipboard", "bidirectional",
+      "--draganddrop", "bidirectional",
+      "--accelerate3d", "on",
+      "--hwvirtex", "on",
+      "--nestedpaging", "on",
+      "--largepages", "on",
+      "--ioapic", "on",
+      "--chipset", "ich9",
+      "--pae", "on",
+      "--paravirtprovider", "kvm",
+      "--natdnshostresolver1", "on",
+    ]
     end
 
     remote.vm.provision "shell", privileged: false, inline: <<-SHELL
@@ -29,6 +42,7 @@ Vagrant.configure(2) do |config|
   # control-VM
   config.vm.define "control" do |control|
     control.vm.box = "ubuntu/bionic64"
+    config.disksize.size = '10GB'
     control.vm.hostname = "ansible-control"
     control.vm.network "private_network", ip: "192.168.50.101"
     control.vm.synced_folder ".", "/vagrant", :mount_options => ['dmode=775', 'fmode=664']
