@@ -39,3 +39,5 @@
   copy: >
     dest="/home/{{ users_username }}"
     src=".ssh"
+    owner="{{ users_username }}"
+    mode="600"
