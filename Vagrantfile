@@ -9,7 +9,7 @@ Vagrant.configure(2) do |config|
     remote.vm.synced_folder ".", "/vagrant", :mount_options => ['dmode=775', 'fmode=664']
 
     remote.vm.provider "virtualbox" do |vb|
-      vb.memory = 2048
+      vb.memory = 4096
       vb.cpus = 2
       vb.name = "ansible-remote"
       vb.gui = true
