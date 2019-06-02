@@ -1,0 +1,14 @@
+---
+- name: fetch jdk11 package
+  get_url: url="{{ java_package_url }}" dest="/tmp/{{ java_package_name }}"
+
+- name: install jdk11
+  unarchive:
+      src="/tmp/{{ java_package_name }}" dest="/opt" remote_src="yes"
+
+- name: fetch maven package
+  get_url: url="{{ maven_package_url }}" dest="/tmp/{{ maven_package_name }}"
+
+- name: install maven
+  unarchive:
+      src="/tmp/{{ maven_package_name }}" dest="/opt" remote_src="yes"
