@@ -41,3 +41,8 @@
     src=".ssh"
     owner="{{ users_username }}"
     mode="600"
+- name: add ulauncher config
+  copy: >
+    dest="/home/{{ users_username }}/.config"
+    src="ulauncher"
+    owner="{{ users_username }}"
