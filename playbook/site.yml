@@ -6,7 +6,6 @@
     - docker
     - git
     - anyenv
-    - java
     - xubuntu
     - ntp
     - users

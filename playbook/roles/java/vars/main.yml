@@ -1,5 +1,0 @@
----
-java_package_url: "https://download.java.net/openjdk/jdk11/ri/openjdk-11+28_linux-x64_bin.tar.gz"
-java_package_name: "openjdk.tar.gz"
-maven_package_url: "http://ftp.jaist.ac.jp/pub/apache/maven/maven-3/3.6.1/binaries/apache-maven-3.6.1-bin.tar.gz"
-maven_package_name: "maven.tar.gz"
