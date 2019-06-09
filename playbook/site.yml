@@ -1,5 +1,5 @@
 ---
-- hosts: remote-vms
+- hosts: remote_vms
   become: yes
   roles:
     - common
