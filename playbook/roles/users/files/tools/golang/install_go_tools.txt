@@ -1,3 +1,5 @@
+echo 'export PATH=$GOPATH/bin:$PATH' >> $HOME/.bashrc
+
 go get -u -t github.com/volatiletech/sqlboiler
 go get github.com/volatiletech/sqlboiler/drivers/sqlboiler-psql
 go get golang.org/x/tools/cmd/stringer
