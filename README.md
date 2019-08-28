@@ -21,7 +21,7 @@
 
 * setup ibus
 * setup ulancher
-* anyenv install --init
+* anyenv install --init  
    after install *env please reboot virtual machine
 
 
